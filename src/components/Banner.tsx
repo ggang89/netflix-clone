@@ -5,10 +5,9 @@ import "./Banner.css";
 import styled from "styled-components";
 
 export default function Banner() {
-  
   const [movie, setMovie] = useState([]);
   const [isClicked, setIsClicked] = useState(false);
-console.log("movie", movie);
+  console.log("movie", movie);
   useEffect(() => {
     fetchData();
   }, []);
@@ -76,10 +75,9 @@ console.log("movie", movie);
             height="360"
             src={`https://www.youtube.com/embed/${movie.videos.results[0].key}?controls=0&autoplay=1&loop=1&mute=1&playlist=${movie.videos.results[0].key}`}
             title="YouTube video player"
-            frameborder="0"
             allow=" autoplay; fullscreen"
-            referrerpolicy="strict-origin-when-cross-origin"
-            allowfullscreen
+
+            // allowfullscreen
           ></Iframe>
         </HomeContainer>
       </Container>
@@ -99,14 +97,14 @@ const HomeContainer = styled.div`
   width: 100%;
   height: 100%;
 `;
-const Iframe=styled.iframe`
+const Iframe = styled.iframe`
   width: 100%;
   height: 100%;
   z-index: -1;
   opacity: 0.65;
-  border:none;
+  border: none;
 
-  &::after{
+  &::after {
     content: "";
     position: absolute;
     top: 0;
@@ -114,4 +112,4 @@ const Iframe=styled.iframe`
     width: 100%;
     height: 100%;
   }
-`
+`;

@@ -21,7 +21,16 @@ type Movie = {
 };
 
 export default function Banner() {
-  const [movie, setMovie] = useState<Movie>({});
+  const [movie, setMovie] = useState<Movie>({
+    id: 0,
+    overview: "",
+    poster_path: "",
+    backdrop_path: "",
+    title: "",
+    name: "",
+    original_name: "",
+    videos: { results: [] }, // 빈 배열을 제공
+  });
   const [isClicked, setIsClicked] = useState(false);
   console.log("movie", movie); 
   useEffect(() => {

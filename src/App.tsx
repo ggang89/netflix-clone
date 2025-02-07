@@ -2,6 +2,7 @@
 import requests from './api/requsts'
 import './App.css'
 import Banner from './components/Banner'
+import Footer from './components/Footer'
 import Nav from './components/Nav'
 import Row from './components/Row'
 
@@ -19,7 +20,8 @@ function App() {
         />
         <Row
           title="Trending Now" id="TN" fetchUrl={requests.fetchTrending} />
-    </div>
+      </div>
+      <Footer/>
     </>
   )
 }

@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import axios from "../api/axios";
 import "./Row.css"
+import MovieModal from "./MovieModel";
 
 type Props = {
   title: string;
@@ -14,20 +15,43 @@ type Movie = {
   id: number;
   name: string;
   poster_path: string;
+  title: string;
+  overview: string;
+  release_date: string;
+  first_air_date: string;
+  vote_average: number;
   // console에 있는 모든 항목을 다 적을 필요없이 사용할 것의 type만 적어주면 되나?
-}
+};
 
 export default function Row({ title, id, fetchUrl, isLargeRow }: Props) {
   const [movies, setMovies] = useState([]);
+  const [modalOpen, setModalOpen] = useState(false);
+  const [movieSelected, setMovieSelected] = useState<Movie>({
+    backdrop_path:" ",
+  id: 0,
+  name: "",
+  poster_path: "",
+  title: "",
+  overview: "",
+  release_date: "",
+  first_air_date: "",
+  vote_average: 0
+  });
+
+  console.log(movieSelected)
   useEffect(() => {
     const fetchMovieData = async () => {
       const request = await axios.get(fetchUrl);
       setMovies(request.data.results);
-      //console.log("request", request);
+      console.log("request", request);
     };
     fetchMovieData();
   }, [fetchUrl]);  //[]는 외부변수만 참조한다
 
+  const handleClick = (movie:Movie) => {
+    setModalOpen(true);
+    setMovieSelected(movie);
+  }
   
   return (
     <section className="row">
@@ -60,6 +84,7 @@ export default function Row({ title, id, fetchUrl, isLargeRow }: Props) {
                 isLargeRow ? movie.poster_path : movie.backdrop_path
               }`}
               alt={movie.name}
+              onClick={()=>handleClick(movie)}
             />
           ))}
         </div>
@@ -74,6 +99,11 @@ export default function Row({ title, id, fetchUrl, isLargeRow }: Props) {
           </span>
         </div>
       </div>
+      {
+        modalOpen && (
+          <MovieModal {...movieSelected} setModalOpen={setModalOpen} />
+        )
+      }
     </section>
   );
 }

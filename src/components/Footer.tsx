@@ -37,7 +37,7 @@ const FooterContainer = styled.div`
   border-top: 1px solid rgb(25, 25, 25);
   width: 100%;
   position: relative;
-  z-index: 100;
+ // z-index: 100;
 
   @media (mx-width: 769px) {
     padding: 20px 20px;

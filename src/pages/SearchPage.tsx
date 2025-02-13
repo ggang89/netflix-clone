@@ -2,15 +2,17 @@ import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import instance from "../api/axios";
 import "./SearchPages.css"
+import useDebounce from "../hooks/useDebounce";
 
 type Movie = {
   backdrop_path: string;
   media_type: string;
+  id: number;
 }
 
 export default function SearchPage() {
   const [searchResults, setSearchresults] = useState<Movie[]>([]);
-  console.log("searchResult",searchResults)
+  //console.log("searchResult",searchResults)
 
   console.log("useLocation", useLocation());
 
@@ -20,13 +22,14 @@ export default function SearchPage() {
 
   const query = useQuery();
   const searchTerm = query.get("q");
-  console.log("searchTerm", searchTerm);
+  const debouncedSearchTerm = useDebounce(searchTerm, 500);
+  // console.log("searchTerm", searchTerm);
 
   useEffect(() => {
-    if (searchTerm) {
-      fetchSearchMovie(searchTerm);
+    if (debouncedSearchTerm) {
+      fetchSearchMovie(debouncedSearchTerm);
     }
-  }, [searchTerm]);
+  }, [debouncedSearchTerm]);
 
   const fetchSearchMovie = async (searchTerm:string) => {
     try {
@@ -48,10 +51,13 @@ export default function SearchPage() {
             const movieImageUrl =
               "https://image.tmdb.org/t/p/w500" + movie.backdrop_path;
             return (
-              <div className="movie">
+              <div className="movie" key={movie.id}>
                 <div className="movie_column_poster">
-                  <img src={movieImageUrl} alt="movie"
-                  className="movie_poster"/>
+                  <img
+                    src={movieImageUrl}
+                    alt="movie"
+                    className="movie_poster"
+                  />
                 </div>
               </div>
             );
@@ -59,10 +65,12 @@ export default function SearchPage() {
         })}
       </section>
     ) : (
-        <section className="no_results">
-          <div className="no_results_text">
-            <p>찾고자 하는 검색어 "{searchTerm}"에 맞는 영화가 없습니다.</p>
-          </div>
+      <section className="no_results">
+        <div className="no_results_text">
+          <p>
+            찾고자 하는 검색어 "{debouncedSearchTerm}"에 맞는 영화가 없습니다.
+          </p>
+        </div>
       </section>
     );
   };

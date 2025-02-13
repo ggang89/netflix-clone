@@ -3,9 +3,14 @@ import { useLocation } from "react-router-dom";
 import instance from "../api/axios";
 import "./SearchPages.css"
 
+type Movie = {
+  backdrop_path: string;
+  media_type: string;
+}
 
 export default function SearchPage() {
-  const [searchResults, setSearchresults] = useState([]);
+  const [searchResults, setSearchresults] = useState<Movie[]>([]);
+  console.log("searchResult",searchResults)
 
   console.log("useLocation", useLocation());
 
@@ -23,7 +28,7 @@ export default function SearchPage() {
     }
   }, [searchTerm]);
 
-  const fetchSearchMovie = async (searchTerm) => {
+  const fetchSearchMovie = async (searchTerm:string) => {
     try {
       const request = await instance.get(
         `/search/multi?include_adult=false&query=${searchTerm}`
@@ -37,7 +42,7 @@ export default function SearchPage() {
 
   const renderSearchResults = () => {
     return searchResults.length > 0 ? (
-      <section className="search-container">
+      <section className="search_container">
         {searchResults.map((movie) => {
           if (movie.backdrop_path !== null && movie.media_type !== "person") {
             const movieImageUrl =

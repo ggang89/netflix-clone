@@ -37,6 +37,15 @@
 }
 
 .movie_poster {
-  width: 90%;
+ display: flex;
+  justify-content: center;
+margin: 100px auto;
+width: fit-content;
+height: 1000px;
+  
   border-radius: 5px;
+}
+.movie_poster_detail{
+text-align: center;
+color: white;
 }

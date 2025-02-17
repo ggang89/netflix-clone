@@ -23,9 +23,13 @@ function MovieModal({
   vote_average,
   setModalOpen
 }: Props) {
-  
-  const ref = useRef();
-  useOnClickOutside(ref,() => {setModalOpen(false)})
+  //const ref = useRef();
+  const ref = useRef<HTMLDivElement>(null);
+  //=>useRef()의 기본 반환 타입이 MutableRefObject<undefined>라서 type오류 발생 
+  // 하지만 ref는 <div> 요소에 할당되므로 HTMLDivElement에 대한 참조여야 합니다
+  useOnClickOutside(ref, () => {
+    setModalOpen(false);
+  });
 
   return (
     <div className="presentation">

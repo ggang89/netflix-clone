@@ -68,7 +68,7 @@ export default function Row({ title, id, fetchUrl, isLargeRow }: Props) {
       <Swiper
         modules={[Navigation, Pagination, Scrollbar, A11y]}
         navigation
-        pagination={{clickable:true}}
+        pagination={{ clickable: true }}
         loop={true}
         breakpoints={{
           1378: {
@@ -91,9 +91,8 @@ export default function Row({ title, id, fetchUrl, isLargeRow }: Props) {
       >
         <div id={id} className="row_posters">
           {movies.map((movie: Movie) => (
-            <SwiperSlide>
+            <SwiperSlide key={movie.id}>
               <img
-                key={movie.id}
                 className='row_poster ${isLargeRow && "row_posterLarge"}'
                 src={`https://image.tmdb.org/t/p/original/${
                   isLargeRow ? movie.poster_path : movie.backdrop_path

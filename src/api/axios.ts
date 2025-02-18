@@ -3,8 +3,8 @@ import axios from "axios";
 const instance = axios.create({
   baseURL: "https://api.themoviedb.org/3",
   params: {
-    api_key: "12ab4a3d51cbb01094359cf4afe686dc",
-    language: "ko-KR"
+    api_key: import.meta.env.VITE_MOVIE_DB_API_KEY,
+    language: "ko-KR",
   },
 });
 

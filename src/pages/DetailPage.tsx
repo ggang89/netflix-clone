@@ -21,7 +21,7 @@ export default function DetailPage() {
     async function fetchData() {
       const request = await instance.get(`/movie/${movieId}`);
       setMovie(request.data);
-      console.log(request);
+     // console.log(request);
     }
     fetchData();
   }, [movieId]);

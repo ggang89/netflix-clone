@@ -13,9 +13,11 @@ export default function useOnClickOutside(ref: Props["ref"], handler: Props["han
   useEffect(() => {
     const listener = (event: MouseEvent) => {
       // 모달창 밖을 클릭시 창을 닫아준다=>ref로 모달창 안인지 밖인지 확인
+      // 1. event 창을 클릭시 함수 종료하고
       if (!ref.current || ref.current.contains(event.target as Node)) {
         return;
       }
+      // 아니면 handler 함수 실행
       handler(event);
     };
 

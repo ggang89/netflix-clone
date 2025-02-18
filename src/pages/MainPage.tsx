@@ -4,7 +4,7 @@ import Row from "../components/Row";
 
 export default function MainPage() {
   return (
-    <div >
+    <div>
       <Banner />
       <Row
         title="NETFLIX ORIGINALS"
@@ -13,6 +13,7 @@ export default function MainPage() {
         isLargeRow
       />
       <Row title="Trending Now" id="TN" fetchUrl={requests.fetchTrending} />
+      <Row title="Top Rated" id="TR" fetchUrl={requests.fetchTopRated} />
     </div>
   );
 }

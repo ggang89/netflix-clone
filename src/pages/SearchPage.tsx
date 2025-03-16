@@ -18,11 +18,12 @@ export default function SearchPage() {
   console.log("useLocation", useLocation());
 
   const useQuery = () => {
-    return new URLSearchParams(useLocation().search);
+    return new URLSearchParams(useLocation().search); //"?q=검색어"를 가져옴
   };
 
   const query = useQuery();
-  const searchTerm = query.get("q");
+  const searchTerm = query.get("q"); //q=검색어에서 검색어만 가져옴
+  //console.log("searchTerm", searchTerm);
   const debouncedSearchTerm = useDebounce(searchTerm, 500);
   // console.log("searchTerm", searchTerm);
 
